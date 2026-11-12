@@ -42,13 +42,13 @@ import org.robolectric.annotation.TextLayoutMode.Mode.LEGACY
 @RunWith(RobolectricTestRunner::class)
 class TextLayoutBuilderTest {
 
-  private lateinit var mBuilder: TextLayoutBuilder
+  private lateinit var builder: TextLayoutBuilder
   private var mLayout: Layout? = null
 
   @Before
   fun setup() {
-    mBuilder = TextLayoutBuilder()
-    mBuilder.setText(TEST)
+    builder = TextLayoutBuilder()
+    builder.setText(TEST)
 
     // Clear the cache.
     TextLayoutBuilder.sCache.evictAll()
@@ -57,71 +57,71 @@ class TextLayoutBuilderTest {
   // Test setters.
   @Test
   fun testSetText() {
-    mLayout = mBuilder.setText("Android").build()
-    assertThat(mBuilder.text).isEqualTo("Android")
+    mLayout = builder.setText("Android").build()
+    assertThat(builder.text).isEqualTo("Android")
     assertThat(mLayout?.text).isEqualTo("Android")
   }
 
   @Test
   fun testSetTextNull() {
-    mLayout = mBuilder.setText(null).build()
-    assertThat(mBuilder.text).isNull()
+    mLayout = builder.setText(null).build()
+    assertThat(builder.text).isNull()
     assertThat(mLayout).isNull()
   }
 
   @Test
   fun testSetTextEmptyStringWithZeroLengthTextAllowed() {
-    mLayout = mBuilder.setText("").setShouldLayoutZeroLengthText(true).build()
-    assertThat(mBuilder.text).isEqualTo("")
+    mLayout = builder.setText("").setShouldLayoutZeroLengthText(true).build()
+    assertThat(builder.text).isEqualTo("")
     assertThat(mLayout?.text).isEqualTo("")
   }
 
   @Test
   fun testSetTextEmptyStringWithZeroLengthTextNotAllowed() {
-    mLayout = mBuilder.setText("").setShouldLayoutZeroLengthText(false).build()
-    assertThat(mBuilder.text).isEqualTo("")
+    mLayout = builder.setText("").setShouldLayoutZeroLengthText(false).build()
+    assertThat(builder.text).isEqualTo("")
     assertThat(mLayout).isNull()
   }
 
   @Test
   fun testSetTextSize() {
-    mLayout = mBuilder.setTextSize(10).build()
-    assertThat(mBuilder.textSize).isEqualTo(10.0f)
+    mLayout = builder.setTextSize(10).build()
+    assertThat(builder.textSize).isEqualTo(10.0f)
     assertThat(mLayout?.paint?.textSize ?: 0f).isEqualTo(10.0f)
   }
 
   @Test
   fun testSetTextColor() {
-    mLayout = mBuilder.setTextColor(0xFFFF0000.toInt()).build()
-    assertThat(mBuilder.textColor).isEqualTo(0xFFFF0000.toInt())
+    mLayout = builder.setTextColor(0xFFFF0000.toInt()).build()
+    assertThat(builder.textColor).isEqualTo(0xFFFF0000.toInt())
     assertThat(mLayout?.paint?.color).isEqualTo(0xFFFF0000.toInt())
   }
 
   @Test
   fun testSetTextColorStateList() {
-    mLayout = mBuilder.setTextColor(ColorStateList.valueOf(0xFFFF0000.toInt())).build()
-    assertThat(mBuilder.textColor).isEqualTo(0xFFFF0000.toInt())
+    mLayout = builder.setTextColor(ColorStateList.valueOf(0xFFFF0000.toInt())).build()
+    assertThat(builder.textColor).isEqualTo(0xFFFF0000.toInt())
     assertThat(mLayout?.paint?.color).isEqualTo(0xFFFF0000.toInt())
   }
 
   @Test
   fun testSetLinkColor() {
-    mLayout = mBuilder.setLinkColor(0xFFFF0000.toInt()).build()
-    assertThat(mBuilder.linkColor).isEqualTo(0xFFFF0000.toInt())
+    mLayout = builder.setLinkColor(0xFFFF0000.toInt()).build()
+    assertThat(builder.linkColor).isEqualTo(0xFFFF0000.toInt())
     assertThat(mLayout?.paint?.linkColor).isEqualTo(0xFFFF0000.toInt())
   }
 
   @Test
   fun testSetTextSpacingExtra() {
-    mLayout = mBuilder.setTextSpacingExtra(10f).build()
-    assertThat(mBuilder.textSpacingExtra).isEqualTo(10.0f)
+    mLayout = builder.setTextSpacingExtra(10f).build()
+    assertThat(builder.textSpacingExtra).isEqualTo(10.0f)
     assertThat(mLayout?.spacingAdd ?: 0f).isEqualTo(10.0f)
   }
 
   @Test
   fun testSetTextSpacingMultiplier() {
-    mLayout = mBuilder.setTextSpacingMultiplier(1.5f).build()
-    assertThat(mBuilder.textSpacingMultiplier).isEqualTo(1.5f)
+    mLayout = builder.setTextSpacingMultiplier(1.5f).build()
+    assertThat(builder.textSpacingMultiplier).isEqualTo(1.5f)
     assertThat(mLayout?.spacingMultiplier ?: 0f).isEqualTo(1.5f)
   }
 
@@ -129,8 +129,8 @@ class TextLayoutBuilderTest {
   @TextLayoutMode(LEGACY)
   fun testSetTextLineHeight() {
     val lineHeight = 15f
-    mLayout = mBuilder.setLineHeight(lineHeight).build()
-    assertThat(mBuilder.lineHeight).isEqualTo(15f)
+    mLayout = builder.setLineHeight(lineHeight).build()
+    assertThat(builder.lineHeight).isEqualTo(15f)
     assertThat(mLayout?.spacingMultiplier ?: 0f).isEqualTo(1.0f)
     val layout = mLayout
     if (layout != null) {
@@ -140,202 +140,202 @@ class TextLayoutBuilderTest {
 
   @Test
   fun testSetIncludeFontPadding() {
-    mLayout = mBuilder.setIncludeFontPadding(false).build()
-    assertThat(mBuilder.includeFontPadding).isFalse()
+    mLayout = builder.setIncludeFontPadding(false).build()
+    assertThat(builder.includeFontPadding).isFalse()
   }
 
   @Test
   fun testSetAlignment() {
-    mLayout = mBuilder.setAlignment(Layout.Alignment.ALIGN_CENTER).build()
-    assertThat(mBuilder.alignment).isEqualTo(Layout.Alignment.ALIGN_CENTER)
+    mLayout = builder.setAlignment(Layout.Alignment.ALIGN_CENTER).build()
+    assertThat(builder.alignment).isEqualTo(Layout.Alignment.ALIGN_CENTER)
     assertThat(mLayout?.alignment).isEqualTo(Layout.Alignment.ALIGN_CENTER)
   }
 
   @Test
   fun testSetTextDirection() {
-    mLayout = mBuilder.setTextDirection(TextDirectionHeuristicsCompat.LOCALE).build()
-    assertThat(mBuilder.textDirection).isEqualTo(TextDirectionHeuristicsCompat.LOCALE)
+    mLayout = builder.setTextDirection(TextDirectionHeuristicsCompat.LOCALE).build()
+    assertThat(builder.textDirection).isEqualTo(TextDirectionHeuristicsCompat.LOCALE)
   }
 
   @Test
   fun testSetTypeface() {
-    mLayout = mBuilder.setTypeface(Typeface.MONOSPACE).build()
-    assertThat(mBuilder.typeface).isEqualTo(Typeface.MONOSPACE)
+    mLayout = builder.setTypeface(Typeface.MONOSPACE).build()
+    assertThat(builder.typeface).isEqualTo(Typeface.MONOSPACE)
   }
 
   @Test
   fun testSetEllipsize() {
-    mLayout = mBuilder.setEllipsize(TextUtils.TruncateAt.MARQUEE).build()
-    assertThat(mBuilder.ellipsize).isEqualTo(TextUtils.TruncateAt.MARQUEE)
+    mLayout = builder.setEllipsize(TextUtils.TruncateAt.MARQUEE).build()
+    assertThat(builder.ellipsize).isEqualTo(TextUtils.TruncateAt.MARQUEE)
   }
 
   @Test
   fun testSetSingleLine() {
-    mLayout = mBuilder.setSingleLine(true).build()
-    assertThat(mBuilder.singleLine).isTrue()
+    mLayout = builder.setSingleLine(true).build()
+    assertThat(builder.singleLine).isTrue()
   }
 
   @Test
   fun testSetMaxLines() {
-    mLayout = mBuilder.setMaxLines(10).build()
-    assertThat(mBuilder.maxLines).isEqualTo(10)
+    mLayout = builder.setMaxLines(10).build()
+    assertThat(builder.maxLines).isEqualTo(10)
   }
 
   @Test
   fun testSetShouldCacheLayout() {
-    mLayout = mBuilder.setShouldCacheLayout(false).build()
-    assertThat(mBuilder.shouldCacheLayout).isFalse()
+    mLayout = builder.setShouldCacheLayout(false).build()
+    assertThat(builder.shouldCacheLayout).isFalse()
   }
 
   @Test
   fun testSetShouldWarmText() {
-    mLayout = mBuilder.setShouldWarmText(true).build()
-    assertThat(mBuilder.shouldWarmText).isTrue()
+    mLayout = builder.setShouldWarmText(true).build()
+    assertThat(builder.shouldWarmText).isTrue()
   }
 
   @Test
   fun testSetBreakStrategy() {
-    mLayout = mBuilder.setBreakStrategy(1).build()
-    assertThat(mBuilder.breakStrategy).isEqualTo(1)
+    mLayout = builder.setBreakStrategy(1).build()
+    assertThat(builder.breakStrategy).isEqualTo(1)
   }
 
   @Test
   fun testSetHyphenationFrequency() {
-    mLayout = mBuilder.setHyphenationFrequency(1).build()
-    assertThat(mBuilder.hyphenationFrequency).isEqualTo(1)
+    mLayout = builder.setHyphenationFrequency(1).build()
+    assertThat(builder.hyphenationFrequency).isEqualTo(1)
   }
 
   @Config(sdk = [26])
   @TargetApi(26)
   @Test
   fun testSetJustificationMode() {
-    mLayout = mBuilder.setJustificationMode(1).build()
-    assertThat(mBuilder.justificationMode).isEqualTo(1)
+    mLayout = builder.setJustificationMode(1).build()
+    assertThat(builder.justificationMode).isEqualTo(1)
   }
 
   @Test
   fun testSetLeftIndents() {
     val leftIndents = intArrayOf(0, 1)
-    mLayout = mBuilder.setIndents(leftIndents, null).build()
-    assertThat(mBuilder.leftIndents).isEqualTo(leftIndents)
+    mLayout = builder.setIndents(leftIndents, null).build()
+    assertThat(builder.leftIndents).isEqualTo(leftIndents)
   }
 
   @Test
   fun testSetRightIndents() {
     val rightIndents = intArrayOf(0, 1)
-    mLayout = mBuilder.setIndents(null, rightIndents).build()
-    assertThat(mBuilder.rightIndents).isEqualTo(rightIndents)
+    mLayout = builder.setIndents(null, rightIndents).build()
+    assertThat(builder.rightIndents).isEqualTo(rightIndents)
   }
 
   @Test
   fun testSetGlyphWarmer() {
     val glyphWarmer = FakeGlyphWarmer()
-    mLayout = mBuilder.setGlyphWarmer(glyphWarmer).build()
-    assertThat(mBuilder.glyphWarmer).isEqualTo(glyphWarmer)
+    mLayout = builder.setGlyphWarmer(glyphWarmer).build()
+    assertThat(builder.glyphWarmer).isEqualTo(glyphWarmer)
   }
 
   // Test functionality.
   @Test
   fun testSingleLine() {
-    mLayout = mBuilder.setText(LONG_TEXT).setSingleLine(true).setWidth(1000).build()
+    mLayout = builder.setText(LONG_TEXT).setSingleLine(true).setWidth(1000).build()
     assertThat(mLayout?.lineCount).isEqualTo(1)
   }
 
   @Test
   fun testMaxLines() {
-    mLayout = mBuilder.setText(LONG_TEXT).setMaxLines(2).setWidth(1000).build()
+    mLayout = builder.setText(LONG_TEXT).setMaxLines(2).setWidth(1000).build()
     assertThat(mLayout?.lineCount).isEqualTo(2)
   }
 
   @Test
   fun testMinEms() {
-    mBuilder.setText(LONG_TEXT).setMinEms(10).build()
-    assertThat(mBuilder.minEms).isEqualTo(10)
-    assertThat(mBuilder.minWidth).isEqualTo(-1)
+    builder.setText(LONG_TEXT).setMinEms(10).build()
+    assertThat(builder.minEms).isEqualTo(10)
+    assertThat(builder.minWidth).isEqualTo(-1)
   }
 
   @Test
   fun testMaxEms() {
-    mBuilder.setText(LONG_TEXT).setMaxEms(10).build()
-    assertThat(mBuilder.maxEms).isEqualTo(10)
-    assertThat(mBuilder.maxWidth).isEqualTo(-1)
+    builder.setText(LONG_TEXT).setMaxEms(10).build()
+    assertThat(builder.maxEms).isEqualTo(10)
+    assertThat(builder.maxWidth).isEqualTo(-1)
   }
 
   @Test
   fun testMinWidth() {
-    mBuilder.setText(LONG_TEXT).setMinWidth(100).build()
-    assertThat(mBuilder.minWidth).isEqualTo(100)
-    assertThat(mBuilder.minEms).isEqualTo(-1)
+    builder.setText(LONG_TEXT).setMinWidth(100).build()
+    assertThat(builder.minWidth).isEqualTo(100)
+    assertThat(builder.minEms).isEqualTo(-1)
   }
 
   @Test
   fun testMaxWidth() {
-    mBuilder.setText(LONG_TEXT).setMaxWidth(100).build()
-    assertThat(mBuilder.maxWidth).isEqualTo(100)
-    assertThat(mBuilder.maxEms).isEqualTo(-1)
+    builder.setText(LONG_TEXT).setMaxWidth(100).build()
+    assertThat(builder.maxWidth).isEqualTo(100)
+    assertThat(builder.maxEms).isEqualTo(-1)
   }
 
   @Test
   fun testDensity() {
-    mBuilder.setDensity(1.5f).build()
-    assertThat(mBuilder.density).isEqualTo(1.5f)
+    builder.setDensity(1.5f).build()
+    assertThat(builder.density).isEqualTo(1.5f)
   }
 
   @Test
   fun testDrawableState() {
     val drawableState = intArrayOf(0, 1)
-    mLayout = mBuilder.setDrawableState(drawableState).build()
-    assertThat(mBuilder.drawableState).containsExactly(*drawableState)
+    mLayout = builder.setDrawableState(drawableState).build()
+    assertThat(builder.drawableState).containsExactly(*drawableState)
   }
 
   @Test
   fun testNewPaint() {
-    val oldPaint = mBuilder.mParams.paint
+    val oldPaint = builder.mParams.paint
 
     // Build the current builder.
-    mBuilder.build()
+    builder.build()
 
     // Change paint properties.
-    mBuilder.setShadowLayer(10.0f, 1.0f, 1.0f, 0)
-    val newPaint = mBuilder.mParams.paint
+    builder.setShadowLayer(10.0f, 1.0f, 1.0f, 0)
+    val newPaint = builder.mParams.paint
     assertThat(newPaint).isNotEqualTo(oldPaint)
   }
 
   @Test
   fun testWarmText() {
     val warmer = FakeGlyphWarmer()
-    mLayout = mBuilder.setShouldWarmText(true).setGlyphWarmer(warmer).build()
+    mLayout = builder.setShouldWarmText(true).setGlyphWarmer(warmer).build()
     assertThat(warmer.getLayout()).isEqualTo(mLayout)
   }
 
   @Test
   fun testDoNotWarmText() {
     val warmer = FakeGlyphWarmer()
-    mLayout = mBuilder.setShouldWarmText(false).setGlyphWarmer(warmer).build()
+    mLayout = builder.setShouldWarmText(false).setGlyphWarmer(warmer).build()
     assertThat(warmer.getLayout()).isNull()
   }
 
   @Test
   fun testCaching() {
-    mLayout = mBuilder.setShouldCacheLayout(true).build()
-    val newLayout = mBuilder.build()
+    mLayout = builder.setShouldCacheLayout(true).build()
+    val newLayout = builder.build()
     assertThat(newLayout).isEqualTo(mLayout)
     assertThat(TextLayoutBuilder.sCache.size()).isEqualTo(1)
-    assertThat(TextLayoutBuilder.sCache.get(mBuilder.mParams.hashCode())).isEqualTo(mLayout)
+    assertThat(TextLayoutBuilder.sCache.get(builder.mParams.hashCode())).isEqualTo(mLayout)
   }
 
   @Test
   fun testNoCaching() {
-    mLayout = mBuilder.setShouldCacheLayout(false).build()
-    val newLayout = mBuilder.build()
+    mLayout = builder.setShouldCacheLayout(false).build()
+    val newLayout = builder.build()
     assertThat(newLayout).isNotEqualTo(mLayout)
     assertThat(TextLayoutBuilder.sCache.size()).isEqualTo(0)
-    assertThat(TextLayoutBuilder.sCache.get(mBuilder.mParams.hashCode())).isNull()
+    assertThat(TextLayoutBuilder.sCache.get(builder.mParams.hashCode())).isNull()
   }
 
   @Test
   fun testTwoBuildersWithSameParamsAndCaching() {
-    mLayout = mBuilder.setShouldCacheLayout(true).build()
+    mLayout = builder.setShouldCacheLayout(true).build()
 
     val newBuilder = TextLayoutBuilder()
     val newLayout = newBuilder.setText(TEST).setShouldCacheLayout(true).build()
@@ -344,7 +344,7 @@ class TextLayoutBuilderTest {
 
   @Test
   fun testTwoBuildersWithSameParamsAndNoCaching() {
-    mLayout = mBuilder.setShouldCacheLayout(false).build()
+    mLayout = builder.setShouldCacheLayout(false).build()
 
     val newBuilder = TextLayoutBuilder()
     val newLayout = newBuilder.setText(TEST).setShouldCacheLayout(false).build()
@@ -355,7 +355,7 @@ class TextLayoutBuilderTest {
   fun testSpannableString() {
     val spannable = SpannableStringBuilder("This is a bold text")
     spannable.setSpan(StyleSpan(Typeface.BOLD), 10, 13, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-    mLayout = mBuilder.setText(spannable).build()
+    mLayout = builder.setText(spannable).build()
     assertThat(mLayout?.text).isEqualTo(spannable)
   }
 
@@ -363,9 +363,9 @@ class TextLayoutBuilderTest {
   fun testCachingSpannableString() {
     val spannable = SpannableStringBuilder("This is a bold text")
     spannable.setSpan(StyleSpan(Typeface.BOLD), 10, 13, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-    mLayout = mBuilder.setText(spannable).setShouldCacheLayout(true).build()
+    mLayout = builder.setText(spannable).setShouldCacheLayout(true).build()
     assertThat(TextLayoutBuilder.sCache.size()).isEqualTo(1)
-    assertThat(TextLayoutBuilder.sCache.get(mBuilder.mParams.hashCode())).isEqualTo(mLayout)
+    assertThat(TextLayoutBuilder.sCache.get(builder.mParams.hashCode())).isEqualTo(mLayout)
   }
 
   @Test
@@ -379,16 +379,16 @@ class TextLayoutBuilderTest {
 
     val spannable = SpannableStringBuilder("This is a bold text")
     spannable.setSpan(clickableSpan, 10, 13, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-    mLayout = mBuilder.setText(spannable).setShouldCacheLayout(true).build()
+    mLayout = builder.setText(spannable).setShouldCacheLayout(true).build()
     assertThat(TextLayoutBuilder.sCache.size()).isEqualTo(0)
-    assertThat(TextLayoutBuilder.sCache.get(mBuilder.mParams.hashCode())).isNull()
+    assertThat(TextLayoutBuilder.sCache.get(builder.mParams.hashCode())).isNull()
   }
 
   @Config(sdk = [23])
   @Test(expected = IllegalArgumentException::class)
   fun testNullSpansAreCaught() {
     val ssb = SpannableStringBuilder().append("abcd", null, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-    mBuilder.setText(ssb).build()
+    builder.setText(ssb).build()
   }
 
   private class FakeGlyphWarmer : GlyphWarmer {
